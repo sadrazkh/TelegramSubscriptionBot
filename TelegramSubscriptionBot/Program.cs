@@ -27,7 +27,7 @@ Console.WriteLine($"Start listening for @{me.Username}");
 Console.ReadLine();
 
 // Send cancellation request to stop bot
-//cts.Cancel();
+cts.Cancel();
 
 async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
 {
@@ -50,15 +50,18 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     // Echo received message text
     Message sentMessage = await botClient.SendTextMessageAsync(
         chatId: chatId,
-        text: "Your Converted Link is : \n Please Copy and Add Subscription links to your client");
+        text: "Your Converted Link is : \n Please Copy and Add Subscription links to your client",
+        cancellationToken: cancellationToken);
 
      sentMessage = await botClient.SendTextMessageAsync(
         chatId: chatId,
-        text: $"{ConvertToApiPath(messageText)}");
+        text: $"{ConvertToApiPath(messageText)}",
+        cancellationToken: cancellationToken);
 
      sentMessage = await botClient.SendTextMessageAsync(
          chatId: adminCahntId,
-         text: $"Received a '{messageText}' message in chat {username}.");
+         text: $"Received a '{messageText}' message in chat {username}.",
+         cancellationToken: cancellationToken);
 }
 
 Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
