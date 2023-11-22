@@ -50,18 +50,15 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     // Echo received message text
     Message sentMessage = await botClient.SendTextMessageAsync(
         chatId: chatId,
-        text: "Your Converted Link is : \n Please Copy and Add Subscription links to your client",
-        cancellationToken: cancellationToken);
+        text: "Your Converted Link is : \n Please Copy and Add Subscription links to your client");
 
      sentMessage = await botClient.SendTextMessageAsync(
         chatId: chatId,
-        text: $"{ConvertToApiPath(messageText)}",
-        cancellationToken: cancellationToken);
+        text: $"{ConvertToApiPath(messageText)}");
 
      sentMessage = await botClient.SendTextMessageAsync(
          chatId: adminCahntId,
-         text: $"Received a '{messageText}' message in chat {username}.",
-         cancellationToken: cancellationToken);
+         text: $"Received a '{messageText}' message in chat {username}.");
 }
 
 Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
